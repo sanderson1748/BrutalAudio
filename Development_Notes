@@ -1,0 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+// Brutal Editor                                                              //
+// - Internal Development Version 24                                          //
+// - 2018 March 21                                                            //
+//                                                                            //
+// sanderson1748@gmail.com                                                    //
+////////////////////////////////////////////////////////////////////////////////
+
+Changes to be made later
+- Change Audio_Window::function_list to Base_Function* (from Function_Input*)
+- Add functionality for removing specific funtions
+
+//

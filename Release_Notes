@@ -1,0 +1,25 @@
+////////////////////////////////////////////////////////////////////////////////
+// Brutal Editor                                                              //
+// - Internal Development Version 24                                          //
+// - 2018 March 21                                                            //
+//                                                                            //
+// sanderson1748@gmail.com                                                    //
+////////////////////////////////////////////////////////////////////////////////
+
+GitHub Release 01 -- Internal Development Version 24
+- Development is still very much in progress
+- - Complete functionality has not been realized
+- - GUI requires overhaul, and style
+- - Bugs are still present
+- 
+- Basic functionality is present
+- - Functions add, update, etc properly
+- - .wav files will be properly created (with "correct" Audio), to Debug/yes.wav
+- - Plot updates and generally behaves properly with function inputs
+- 
+- Notes
+- - "Export" button creates wav file, but "Play" and "Save" buttons have not yet been given functionality
+- - Settings don't really work. 32-Bit, 48k, Mono-L is the only one that will work
+- 
+
+//

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT name="brutal_osx" projectType="guiapp" jucerVersion="5.2.1">
+  <MAINGROUP id="wiJ8qH" name="brutal_osx">
+    <GROUP id="{EA2642A6-A412-EA2E-EC6F-0FAABD84D6BC}" name="Files">
+      <FILE id="nhHM1B" name="Audio_File.h" compile="0" resource="0" file="../../Files/Audio_File.h"
+            xcodeResource="1"/>
+      <FILE id="oFV5T5" name="Wav_File.cpp" compile="1" resource="0" file="../../Files/Wav_File.cpp"
+            xcodeResource="1"/>
+      <FILE id="WMnoip" name="Wav_File.h" compile="0" resource="0" file="../../Files/Wav_File.h"
+            xcodeResource="1"/>
+    </GROUP>
+    <GROUP id="{6155C2D7-9050-7AD3-0584-5BE2CCDAA2E0}" name="Functions">
+      <FILE id="EQcyXI" name="Base_Function.h" compile="0" resource="0" file="../../Functions/Base_Function.h"
+            xcodeResource="1"/>
+      <FILE id="p5MrxW" name="DegreeOne_Function.cpp" compile="1" resource="0"
+            file="../../Functions/DegreeOne_Function.cpp" xcodeResource="1"/>
+      <FILE id="KMMMcb" name="DegreeOne_Function.h" compile="0" resource="0"
+            file="../../Functions/DegreeOne_Function.h" xcodeResource="1"/>
+      <FILE id="S3jNDo" name="DegreeZero_Function.cpp" compile="1" resource="0"
+            file="../../Functions/DegreeZero_Function.cpp" xcodeResource="1"/>
+      <FILE id="c3jBrb" name="DegreeZero_Function.h" compile="0" resource="0"
+            file="../../Functions/DegreeZero_Function.h" xcodeResource="1"/>
+      <FILE id="jeJ0DP" name="Saw_Function.h" compile="0" resource="0" file="../../Functions/Saw_Function.h"
+            xcodeResource="1"/>
+      <FILE id="R9cgqB" name="Sine_Function.cpp" compile="1" resource="0"
+            file="../../Functions/Sine_Function.cpp" xcodeResource="1"/>
+      <FILE id="HGhkSH" name="Sine_Function.h" compile="0" resource="0" file="../../Functions/Sine_Function.h"
+            xcodeResource="1"/>
+    </GROUP>
+    <GROUP id="{8DF77286-E83A-3C7F-862A-CC8717E9E915}" name="Gui">
+      <GROUP id="{4BF0C528-FA8E-0F0A-6EBB-1FB7B244C0DC}" name="Audio">
+        <FILE id="t0wncG" name="Audio_Window.cpp" compile="1" resource="0"
+              file="../../Gui/Audio/Audio_Window.cpp" xcodeResource="1"/>
+        <FILE id="a2f8dg" name="Audio_Window.h" compile="0" resource="0" file="../../Gui/Audio/Audio_Window.h"
+              xcodeResource="1"/>
+        <FILE id="tSUZTa" name="Control_Package.cpp" compile="1" resource="0"
+              file="../../Gui/Audio/Control_Package.cpp" xcodeResource="1"/>
+        <FILE id="K793te" name="Control_Package.h" compile="0" resource="0"
+              file="../../Gui/Audio/Control_Package.h" xcodeResource="1"/>
+        <FILE id="cukt4o" name="Function_Input.cpp" compile="1" resource="0"
+              file="../../Gui/Audio/Function_Input.cpp" xcodeResource="1"/>
+        <FILE id="oBK8uz" name="Function_Input.h" compile="0" resource="0"
+              file="../../Gui/Audio/Function_Input.h" xcodeResource="1"/>
+        <FILE id="FclKKg" name="Function_Package.cpp" compile="1" resource="0"
+              file="../../Gui/Audio/Function_Package.cpp" xcodeResource="1"/>
+        <FILE id="wo1Glo" name="Function_Package.h" compile="0" resource="0"
+              file="../../Gui/Audio/Function_Package.h" xcodeResource="1"/>
+        <FILE id="ydHsKX" name="Graph_Package.cpp" compile="1" resource="0"
+              file="../../Gui/Audio/Graph_Package.cpp" xcodeResource="1"/>
+        <FILE id="mpi01a" name="Graph_Package.h" compile="0" resource="0" file="../../Gui/Audio/Graph_Package.h"
+              xcodeResource="1"/>
+        <FILE id="tmwEN9" name="Settings_Package.cpp" compile="1" resource="0"
+              file="../../Gui/Audio/Settings_Package.cpp" xcodeResource="1"/>
+        <FILE id="N9rkFj" name="Settings_Package.h" compile="0" resource="0"
+              file="../../Gui/Audio/Settings_Package.h" xcodeResource="1"/>
+      </GROUP>
+      <GROUP id="{E8B63CC3-7FF7-C6EA-EB16-96D36ED59B31}" name="Image">
+        <FILE id="CK1YiI" name="Image_Window.cpp" compile="1" resource="0"
+              file="../../Gui/Image/Image_Window.cpp" xcodeResource="1"/>
+        <FILE id="AR6mO5" name="Image_Window.h" compile="0" resource="0" file="../../Gui/Image/Image_Window.h"
+              xcodeResource="1"/>
+      </GROUP>
+      <GROUP id="{413CFEC1-AC1C-B63E-2D81-F2F110E5380D}" name="Launch">
+        <FILE id="qniGBb" name="Launch_Button.cpp" compile="1" resource="0"
+              file="../../Gui/Launch/Launch_Button.cpp" xcodeResource="1"/>
+        <FILE id="Sw3PQ8" name="Launch_Button.h" compile="0" resource="0" file="../../Gui/Launch/Launch_Button.h"
+              xcodeResource="1"/>
+        <FILE id="Uq8xcJ" name="Launch_Window.cpp" compile="1" resource="0"
+              file="../../Gui/Launch/Launch_Window.cpp" xcodeResource="1"/>
+        <FILE id="IZpJGd" name="Launch_Window.h" compile="0" resource="0" file="../../Gui/Launch/Launch_Window.h"
+              xcodeResource="1"/>
+      </GROUP>
+      <FILE id="ibCaLH" name="Gui_Headers.h" compile="0" resource="0" file="../../Gui/Gui_Headers.h"
+            xcodeResource="1"/>
+    </GROUP>
+    <GROUP id="{6C998AE6-1CCC-20D3-8AE7-67DBE93D143A}" name="Util">
+      <FILE id="mAGPuH" name="Util_Guy.cpp" compile="1" resource="0" file="../../Util/Util_Guy.cpp"
+            xcodeResource="1"/>
+      <FILE id="VMPbdY" name="Util_Guy.h" compile="0" resource="0" file="../../Util/Util_Guy.h"
+            xcodeResource="1"/>
+    </GROUP>
+    <FILE id="br3pPG" name="Headers.h" compile="0" resource="0" file="../../Headers.h"
+          xcodeResource="1"/>
+    <FILE id="JtC4cA" name="main.cpp" compile="1" resource="0" file="../../main.cpp"
+          xcodeResource="1"/>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../Juce/src_OSX"/>
+        <MODULEPATH id="juce_events" path="../../Juce/src_OSX"/>
+        <MODULEPATH id="juce_graphics" path="../../Juce/src_OSX"/>
+        <MODULEPATH id="juce_data_structures" path="../../Juce/src_OSX"/>
+        <MODULEPATH id="juce_gui_basics" path="../../Juce/src_OSX"/>
+        <MODULEPATH id="juce_gui_extra" path="../../Juce/src_OSX"/>
+        <MODULEPATH id="juce_cryptography" path="../../Juce/src_OSX"/>
+        <MODULEPATH id="juce_video" path="../../Juce/src_OSX"/>
+        <MODULEPATH id="juce_opengl" path="../../Juce/src_OSX"/>
+        <MODULEPATH id="juce_audio_basics" path="../../Juce/src_OSX"/>
+        <MODULEPATH id="juce_audio_devices" path="../../Juce/src_OSX"/>
+        <MODULEPATH id="juce_audio_formats" path="../../Juce/src_OSX"/>
+        <MODULEPATH id="juce_audio_processors" path="../../Juce/src_OSX"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>
