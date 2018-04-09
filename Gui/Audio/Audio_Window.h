@@ -1,8 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -17,6 +14,7 @@
 #define __AUDIO_WINDOW__
 
 #include <vector>
+#include <thread>
 
 #include <juce_gui_basics/juce_gui_basics.h>
 
@@ -27,6 +25,7 @@
 #include "Function_Package.h"
 #include "Settings_Package.h"
 #include "../../Files/Audio_File.h"
+#include "../../Functions/Base_Function.h"
 
 // Window is GUI base component thingy needed by JUCE main, holds Editor
 class Audio_Window : public juce::DocumentWindow
@@ -48,10 +47,15 @@ class Audio_Editor : public juce::Component
 		// For JUCE
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Audio_Editor);
 
+		// Threading
+#if 0	// later
+		std::thread export_thread;
+#endif
+
 		// Data
 		juce::ScopedPointer<Audio_File>       file_output;
 		juce::ScopedPointer<Settings_Struct>  file_settings;
-		std::vector<juce::ScopedPointer<Function_Input>> function_list;	// change to Base_Function ! 
+		std::vector<juce::ScopedPointer<Base_Function>> function_list;
 
 		// Packages
 		juce::ScopedPointer<Graph_Package>    graphs;
@@ -83,8 +87,9 @@ class Audio_Editor : public juce::Component
 
 		// From Function Package
 		void FunctionsAdd_Pressed(void);
-		void FunctionsSub_Pressed(void);
-		void InputsSwap_Pressed(void);
+		void InputsSwap_Pressed(unsigned int);
+		void InputsSub_Pressed(unsigned int);
+		void InputsEditor_Changed(void);
 
 		// From Settings Package
 		void SettingsSamples_Pressed(void);

@@ -1,8 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -81,8 +78,6 @@ Control_Package::Control_Package()
 	addAndMakeVisible(butt_export);
 	addAndMakeVisible(butt_save);
 	addAndMakeVisible(butt_finish);
-
-	resized();
 }
 
 Control_Package::~Control_Package()

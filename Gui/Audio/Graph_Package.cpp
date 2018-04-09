@@ -1,8 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -92,8 +89,6 @@ Graph_Package::Graph_Package()
 	label_hit->setVisible(true);
 
 	// Go
-	resized();
-
 	addAndMakeVisible(graph_fella);
 
 	addAndMakeVisible(label_bounds);
@@ -127,31 +122,34 @@ Graph_Package::~Graph_Package()
 }
 
 // -- Work ------------------------------------------------------------------ //
-// ditch?
-void Graph_Package::Add_Entry(Base_Function* new_funcc)
-{
-}
-
-// ditch?
-void Graph_Package::Remove_Entry(unsigned int choose)
-{
-}
-
 // Grab from editors
 float Graph_Package::Grab_Bounds()
 {
+#if defined SHOW_FUNCTIONS
+	std::cout << "Debug> Graph_Package::Grab_Bounds()" << std::endl;
+#endif
+
 	juce::String str = edit_bounds->getText();
 	return str.getFloatValue();
 }
 
-float Graph_Package::Grab_TimeMs()
+unsigned int Graph_Package::Grab_TimeMs()
 {
+#if defined SHOW_FUNCTIONS
+	std::cout << "Debug> Graph_Package::Grab_TimeMs()" << std::endl;
+#endif
+
 	juce::String str = edit_time->getText();
-	return (str.getFloatValue() * 1000);
+	return (unsigned int) (str.getFloatValue() * 1000);
 }
 
-void Graph_Package::Update_Inputs() // change to pass Settings_Struct* ?
+// change to pass Settings_Struct* ?
+void Graph_Package::Update_Inputs()
 {
+#if defined SHOW_FUNCTIONS
+	std::cout << "Debug> Graph_Package::Update_Inputs()" << std::endl;
+#endif
+
 	Audio_Editor* editor_parent = (Audio_Editor*) this->getParentComponent();
 	Settings_Struct* tmp_settings = editor_parent->Get_Settings();
 
@@ -159,14 +157,15 @@ void Graph_Package::Update_Inputs() // change to pass Settings_Struct* ?
 	edit_time  ->setText(juce::String((float) (tmp_settings->file_time_ms / 1000), FLOAT_PRECISION), false);
 }
 
-// Update everything
+// Update the whole plot
 void Graph_Package::Update_Graph()
 {
+#if 1//
 	static int yes = 0;
 	juce::String tmp(yes);
 	yes++;
 	label_hit->setText(tmp, juce::NotificationType(0));
-
+#endif
 	graph_fella->Hit_It();
 }
 

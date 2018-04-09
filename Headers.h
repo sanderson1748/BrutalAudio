@@ -1,10 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
+//
 // Headers.h
 //
 // Global Options, Platform, etc
@@ -53,7 +51,7 @@
 //#define DEBUG
 
 #if defined DEBUG
-#define CONSTRUCTORS
+//#define CONSTRUCTORS
 #define SHOW_FUNCTIONS
 //#define SHOW_GET_SET
 //#define SHOW_ADDRESSES

@@ -1,8 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -20,8 +17,10 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 
 #include "../../Headers.h"
-
 #include "../Gui_Headers.h"
+
+#include "Settings_Package.h"
+
 #define RESOLUTION	(GRAPH_GRAPH_WIDTH)
 
 #define ARROW_POINTS	3
@@ -45,6 +44,8 @@ class Graph_Graph : public juce::Component
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Graph_Graph);
 
 		// Plan
+		Settings_Struct* tmp_settings;
+
 		bool clipping;	// this may need to move to Audio_Editor
 
 		float edge_buffer;//edge_y_buffer; 	// as a percent!
@@ -95,6 +96,7 @@ class Graph_Graph : public juce::Component
 		void Set_Grid(void);
 		void Set_Plot(void);
 		void Set_Helpers(void);
+		void Clear_Plan(void);
 
 		// JUCE
 		void paint(juce::Graphics&) override;

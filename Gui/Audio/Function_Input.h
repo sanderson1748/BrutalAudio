@@ -1,8 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -46,8 +43,11 @@ class Function_Input : public juce::Component
 	private:
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Function_Input);
 
+		// General
+	       unsigned int list_id;
+
 		// Audio
-		juce::ScopedPointer<Base_Function> funcc;
+		Base_Function* funcc;
 
 		// GUI
 		juce::ScopedPointer<ButtonListener_FunctionInput> listen_butt;
@@ -59,14 +59,16 @@ class Function_Input : public juce::Component
 		juce::ScopedPointer<juce::TextEditor> inputs[INPUTS];
 
 		juce::ScopedPointer<juce::TextButton> button_type;
+		juce::ScopedPointer<juce::TextButton> button_sub;
 
 	public:
 		// General
-		Function_Input(void);
+		Function_Input(unsigned int, Base_Function*);
 		~Function_Input(void);
 
 		// Work 
-		Base_Function* Get_Funcc(void);
+		unsigned int Get_Id(void);
+		void Set_Id(unsigned int);
 		void New_Funcc(int);
 		void Swap_Funcc(void);
 

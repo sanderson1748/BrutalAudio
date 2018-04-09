@@ -1,8 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -23,46 +20,29 @@
 #include <iostream>
 #endif
 
+// Define Inputs
+#define NUM_SINE_VALUES	(4)
+#define NUM_SAW__VALUES	(5)	// maybe?
+#define NUM_DEG0_VALUES	(1)
+#define NUM_DEG1_VALUES	(2)
+#define NUM_ERR__VALUES	(0)	// this is dumb
+
+#define TEXT_SWAP	"Swap"
+#define TEXT_SUB	"Remove"
+
 // ButtonListener_FunctionInput --------------------------------------------- //
 // Delete current Function, and move to next one
 void ButtonListener_FunctionInput::buttonClicked(juce::Button* butt)
 {
-#if 1
 	Function_Input*   input_parent    = (Function_Input*)   butt           ->getParentComponent();
-	Function_House*   house_parent    = (Function_House*)   input_parent   ->getParentComponent();
-	Function_Package* function_parent = (Function_Package*) house_parent   ->getParentComponent();
+	Function_Package* function_parent = (Function_Package*) input_parent   ->getParentComponent();
 	Audio_Editor*     editor_parent   = (Audio_Editor*)     function_parent->getParentComponent();
 
-	input_parent->Swap_Funcc();	// this is uncomfortable, but it's better than grabbing index,etc
+	std::cout << "ID: " << input_parent->Get_Id() << std::endl;
 
-	editor_parent->InputsSwap_Pressed();
-#else
-	int choose;
-	Function_Input* input_parent = (Function_Input*) butt->getParentComponent();
-
-	if (input_parent->Get_Funcc() == nullptr) 
-	{
-		std::cout << "its null" << std::endl;
-		return;
-	}
-	
-	switch (input_parent->Get_Funcc()->Get_Id())
-	{
-		case (SINE):	choose = DEG0;		break;
-//		case (SINE):	choose = SAW;		break;
-//		case (SAW):	choose = DEG0;		break;
-		case (DEG0):	choose = DEG1;		break;
-		case (DEG1):	choose = SINE;		break;
-		default:
-		{
-			std::cout << "Debug> InputButton_Listener::buttonClicked() bad Function Id" << std::endl;
-			break;
-		}
-	}
-
-	input_parent->New_Funcc(choose);
-	input_parent->Refresh_All();
-#endif
+	if      (butt->getName() == TEXT_SWAP)	editor_parent->InputsSwap_Pressed(input_parent->Get_Id());
+	else if (butt->getName() == TEXT_SUB)	editor_parent->InputsSub_Pressed (input_parent->Get_Id());
+	//else					throw something;
 }
 
 void ButtonListener_FunctionInput::buttonStateChanged(juce::Button* butt)
@@ -74,14 +54,15 @@ void ButtonListener_FunctionInput::buttonStateChanged(juce::Button* butt)
 void EditorListener_FunctionInput::textEditorTextChanged(juce::TextEditor& edit)
 {
 	Function_Input*   input_parent    = (Function_Input*)   edit.getParentComponent();
-	Function_House*   house_parent    = (Function_House*)   input_parent   ->getParentComponent();
-	Function_Package* function_parent = (Function_Package*) house_parent   ->getParentComponent();
+	Function_Package* function_parent = (Function_Package*) input_parent   ->getParentComponent();
 	Audio_Editor*     editor_parent   = (Audio_Editor*)     function_parent->getParentComponent();
+
+	std::cout << "ID: " << input_parent->Get_Id() << std::endl;
 
 	input_parent->Update_Function();
 	input_parent->Update_Helper();
 
-	editor_parent->InputsSwap_Pressed();
+	editor_parent->InputsEditor_Changed();
 }
 
 // This shouldn't do anything - values are updated from TextChanged
@@ -102,14 +83,17 @@ void EditorListener_FunctionInput::textEditorFocusLost(juce::TextEditor& edit)
 
 // Function_Input ----------------------------------------------------------- //
 // -- General --------------------------------------------------------------- //
-Function_Input::Function_Input()
+Function_Input::Function_Input(unsigned int in_id, Base_Function* in_funcc)
 {
 #if defined CONSTRUCTORS
 	std::cout << "Debug> Function_Input::Construct" << std::endl;
 #endif
 
+	// General
+	list_id = in_id;
+
 	// Audio
-	New_Funcc(SINE);	// Sine is default
+	funcc = in_funcc;
 
 	// GUI
 	// - Listeners
@@ -147,10 +131,15 @@ Function_Input::Function_Input()
 	}
 
 	// - Buttons
-	button_type = new juce::TextButton(TEXT_CHANGE);
+	button_type = new juce::TextButton(TEXT_SWAP);
 	button_type->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
 	button_type->setVisible(true);
 	button_type->addListener((juce::Button::Listener*) listen_butt);
+
+	button_sub  = new juce::TextButton(TEXT_SUB);
+	button_sub ->setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+	button_sub ->setVisible(true);
+	button_sub ->addListener((juce::Button::Listener*) listen_butt);
 
 	// Finalize
 	addAndMakeVisible(label_helper);
@@ -160,8 +149,7 @@ Function_Input::Function_Input()
 		addAndMakeVisible(inputs[i]);
 	}
 	addAndMakeVisible(button_type);
-
-	resized();
+	addAndMakeVisible(button_sub);
 
 	// Populate with correct values
 	Refresh_All();
@@ -189,12 +177,18 @@ Function_Input::~Function_Input()
 	}
 
 	button_type = nullptr;
+	button_sub  = nullptr;
 }
 
 // -- Work ------------------------------------------------------------------ //
-Base_Function* Function_Input::Get_Funcc()
+unsigned int Function_Input::Get_Id()
 {
-	return funcc;
+	return list_id;
+}
+
+void Function_Input::Set_Id(unsigned int in_id)
+{
+	list_id = in_id;
 }
 
 // Change Function to next one in queue
@@ -216,6 +210,8 @@ void Function_Input::New_Funcc(int choose)
 			break;
 		}
 	}
+
+	Refresh_All();
 }
 
 void Function_Input::Swap_Funcc()
@@ -241,6 +237,10 @@ void Function_Input::Swap_Funcc()
 // Calls all of the Input Functions
 void Function_Input::Refresh_All()
 {
+#if defined SHOW_FUNCTIONS
+	std::cout << "Debug> Function_Input::Refresh_All()" << std::endl;
+#endif
+
 	Define_Inputs();
 	Set_Inputs();
 	Update_Helper();
@@ -258,11 +258,7 @@ void Function_Input::Define_Inputs()
 		case (SAW):	high_bound = NUM_SAW__VALUES;	break;
 		case (DEG0):	high_bound = NUM_DEG0_VALUES;	break;
 		case (DEG1):	high_bound = NUM_DEG1_VALUES;	break;
-		default:
-		{
-			std::cout << "Debug> Function_Input::Define_Inputs() bad Function Id" << std::endl;
-			break;
-		}
+		default:	high_bound = NUM_ERR__VALUES;	break;
 	}
 
 	// Inputs
@@ -370,6 +366,12 @@ void Function_Input::Update_Function()
 		}
 		case (SAW):
 		{
+			f0 = FLOAT_NULL;
+			f1 = FLOAT_NULL;
+			f2 = FLOAT_NULL;
+			f3 = FLOAT_NULL;
+			f4 = FLOAT_NULL;
+
 			break;
 		}
 		case (DEG0):
@@ -396,7 +398,12 @@ void Function_Input::Update_Function()
 		}
 		default:
 		{
-			std::cout << "Debug> Function_Input::Update_Function() bad Function Id" << std::endl;
+			f0 = FLOAT_NULL;
+			f1 = FLOAT_NULL;
+			f2 = FLOAT_NULL;
+			f3 = FLOAT_NULL;
+			f4 = FLOAT_NULL;
+
 			break;
 		}
 	}
@@ -414,6 +421,7 @@ void Function_Input::resized()
 {
 	// Top Side
 	label_helper->setTopLeftPosition(GUI_ZERO          , GUI_ZERO);
+	button_sub  ->setTopLeftPosition(FUNPACK_LABEL_HELP - BUTTON_WIDTH, GUI_ZERO);	// tmp
 	button_type ->setTopLeftPosition(FUNPACK_LABEL_HELP, GUI_ZERO);
 
 	// Bottom Side

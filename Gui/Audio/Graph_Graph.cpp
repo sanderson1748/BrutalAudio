@@ -1,8 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -101,6 +98,10 @@ Graph_Graph::~Graph_Graph()
 // change
 void Graph_Graph::Hit_It()
 {
+#if defined SHOW_FUNCTIONS
+	std::cout << "Debug> Graph_Graph::Hit_It()" << std::endl;
+#endif
+
 	Plan_Graph();
 	Set_Background();
 	Set_Grid();
@@ -108,14 +109,16 @@ void Graph_Graph::Hit_It()
 	Set_Helpers();
 
 	repaint();
+	Clear_Plan();
 }
 
 void Graph_Graph::Plan_Graph()
 {
+	// Settings
 	Graph_Package* graph_parent  = (Graph_Package*)               getParentComponent();
 	Audio_Editor*  editor_parent = (Audio_Editor*)  graph_parent->getParentComponent();
 
-	Settings_Struct* tmp_settings = editor_parent->Get_Settings();
+	tmp_settings = editor_parent->Get_Settings();
 
 	// Max -> may move to audio editor
 	abs_maxxx = editor_parent->Find_AbsMax();
@@ -154,11 +157,6 @@ void Graph_Graph::Plan_Graph()
 // background_rectangles = { middle (white), top, bottom }
 void Graph_Graph::Set_Background()
 {
-	Graph_Package* graph_parent  = (Graph_Package*)               getParentComponent();
-	Audio_Editor*  editor_parent = (Audio_Editor*)  graph_parent->getParentComponent();
-
-	Settings_Struct* tmp_settings = editor_parent->Get_Settings();
-
 	float y_converge;	// pixel! distance from centre to interface
 	float set_y;
 	float y_centre   = scale_y_pixels / 2;
@@ -196,11 +194,6 @@ void Graph_Graph::Set_Background()
 
 void Graph_Graph::Set_Grid()
 {
-	Graph_Package* graph_parent  = (Graph_Package*)               getParentComponent();
-	Audio_Editor*  editor_parent = (Audio_Editor*)  graph_parent->getParentComponent();
-
-	Settings_Struct* tmp_settings = editor_parent->Get_Settings();
-
 	float x_centre = scale_x_pixels - (scale_x_pixels / edge_buffer);
 	float y_centre = scale_y_pixels / 2;
 
@@ -299,9 +292,12 @@ void Graph_Graph::Set_Grid()
 	}
 }
 
+// Still temp
 void Graph_Graph::Set_Plot()
 {
-	// temp
+	Graph_Package* graph_parent  = (Graph_Package*)               getParentComponent();
+	Audio_Editor*  editor_parent = (Audio_Editor*)  graph_parent->getParentComponent();
+
 	float theta, f_at;	// values to be plugged in for evaluation
 	float x_pixel, y_pixel;	// values to be used for plot
 
@@ -311,13 +307,6 @@ void Graph_Graph::Set_Plot()
 
 	float x_centre = scale_x_pixels - (scale_x_pixels / edge_buffer);
 	float y_centre = scale_y_pixels / 2;
-
-	unsigned int max_samples = 4 * 48000; // 4s * 48000 sam/s
-
-	Graph_Package* graph_parent  = (Graph_Package*)               getParentComponent();
-	Audio_Editor*  editor_parent = (Audio_Editor*)  graph_parent->getParentComponent();
-
-	Settings_Struct* tmp_settings = editor_parent->Get_Settings();
 
 	// Grind
 	grind_rate = ((float) tmp_settings->file_time_ms) / (1000 * resolution);
@@ -432,6 +421,11 @@ void Graph_Graph::Set_Helpers()
 	grid_arrow_b[1]->setY(grid_arrow_b[0]->getY() - ARROW_WIDTH);
 	grid_arrow_b[2]->setX(grid_arrow_b[0]->getX() - ARROW_LENGTH);
 	grid_arrow_b[2]->setY(grid_arrow_b[0]->getY() + ARROW_WIDTH);
+}
+
+void Graph_Graph::Clear_Plan()
+{
+	tmp_settings = nullptr;
 }
 
 // -- JUCE ------------------------------------------------------------------ //

@@ -1,8 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -61,13 +58,10 @@ class Graph_Package : public juce::Component
 		~Graph_Package(void);
 
 		// Work
-		void Add_Entry(Base_Function*);		// ditch?
-		void Remove_Entry(unsigned int);	// ditch?
-
 		float Grab_Bounds(void);
-		float Grab_TimeMs(void);
+		unsigned int Grab_TimeMs(void);
 
-		void Update_Inputs(void);		// Change to Settings_Struct* ?
+		void Update_Inputs(void);	// Change to Settings_Struct* ?
 		void Update_Graph(void);
 
 		// JUCE

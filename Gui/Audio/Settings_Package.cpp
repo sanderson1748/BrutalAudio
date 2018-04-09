@@ -1,8 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -64,9 +61,6 @@ Settings_Package::Settings_Package()
 #if defined CONSTRUCTORS
 	std::cout << "Debug> Settings_Package::Construct" << std::endl;
 #endif
-
-	// Settings 
-	Audio_Editor* edit_parent = (Audio_Editor*) getParentComponent();
 
 	// Controls
 	// - Listeners
@@ -150,8 +144,6 @@ Settings_Package::Settings_Package()
 	addAndMakeVisible(butt_channels);
 
 	addAndMakeVisible(butt_roundtail);
-
-	resized();
 }
 
 Settings_Package::~Settings_Package()
@@ -208,22 +200,22 @@ void Settings_Package::paint(juce::Graphics& g)
 void Settings_Package::resized()
 {
 	// Samples
-	label_samples ->setTopLeftPosition( GUI_ZERO                               , (0*LABEL_HEIGHT));
-	edit_samples  ->setTopLeftPosition( LABEL_WIDTH_LARGE                      , (0*LABEL_HEIGHT));
-	butt_samples  ->setTopLeftPosition((LABEL_WIDTH_LARGE + EDITOR_WIDTH_SMALL), (0*LABEL_HEIGHT));
+	label_samples ->setTopLeftPosition( GUI_ZERO                               , 0*LABEL_HEIGHT);
+	edit_samples  ->setTopLeftPosition( LABEL_WIDTH_LARGE                      , 0*LABEL_HEIGHT);
+	butt_samples  ->setTopLeftPosition((LABEL_WIDTH_LARGE + EDITOR_WIDTH_SMALL), 0*LABEL_HEIGHT);
 
 	// Bytes
-	label_depth   ->setTopLeftPosition( GUI_ZERO                               , (1*LABEL_HEIGHT));
-	edit_depth    ->setTopLeftPosition( LABEL_WIDTH_LARGE                      , (1*LABEL_HEIGHT));
-	butt_depth    ->setTopLeftPosition((LABEL_WIDTH_LARGE + EDITOR_WIDTH_SMALL), (1*LABEL_HEIGHT));
+	label_depth   ->setTopLeftPosition( GUI_ZERO                               , 1*LABEL_HEIGHT);
+	edit_depth    ->setTopLeftPosition( LABEL_WIDTH_LARGE                      , 1*LABEL_HEIGHT);
+	butt_depth    ->setTopLeftPosition((LABEL_WIDTH_LARGE + EDITOR_WIDTH_SMALL), 1*LABEL_HEIGHT);
 
 	// Channels
-	label_channels->setTopLeftPosition( GUI_ZERO                               , (2*LABEL_HEIGHT));
-	edit_channels ->setTopLeftPosition( LABEL_WIDTH_LARGE                      , (2*LABEL_HEIGHT));
-	butt_channels ->setTopLeftPosition((LABEL_WIDTH_LARGE + EDITOR_WIDTH_SMALL), (2*LABEL_HEIGHT));
+	label_channels->setTopLeftPosition( GUI_ZERO                               , 2*LABEL_HEIGHT);
+	edit_channels ->setTopLeftPosition( LABEL_WIDTH_LARGE                      , 2*LABEL_HEIGHT);
+	butt_channels ->setTopLeftPosition((LABEL_WIDTH_LARGE + EDITOR_WIDTH_SMALL), 2*LABEL_HEIGHT);
 
 	// Round it
-	butt_roundtail->setTopLeftPosition( GUI_ZERO                               , (3*LABEL_HEIGHT));
+	butt_roundtail->setTopLeftPosition( GUI_ZERO                               , 3*LABEL_HEIGHT);
 }
 
 //

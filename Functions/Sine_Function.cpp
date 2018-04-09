@@ -1,15 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
+//
 // Sine_Function.cpp
 //
 
 #include <cmath>
-#include <string>
 
 #include "Sine_Function.h"
 
@@ -24,7 +21,8 @@ extern "C"
 #include <iostream>
 #endif
 
-// General ----------------------------------------------------------------- //
+// Sine_Function ------------------------------------------------------------ //
+// -- General --------------------------------------------------------------- //
 Sine_Function::Sine_Function()
 {
 #if defined CONSTRUCTORS
@@ -45,12 +43,13 @@ Sine_Function::~Sine_Function()
 #endif
 }
 
-// Base_Function ----------------------------------------------------------- //
+// -- Base_Function --------------------------------------------------------- //
 int Sine_Function::Get_Id()
 {
 	return id;
 }
 
+// Returned Array will be of size 4 (== NUM_SINE_VALUES)
 float* Sine_Function::Get_Values()
 {
 	return (float*) (&dude);
@@ -108,6 +107,9 @@ float Sine_Function::Evaluate_Float(float in_x)	// x is theta!
 	return ret;
 }
 
-// Sine -------------------------------------------------------------------- //
+// -- Sine ------------------------------------------------------------------ //
+//
+// pass
+//
 
 //

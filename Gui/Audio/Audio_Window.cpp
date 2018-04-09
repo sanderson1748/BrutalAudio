@@ -1,8 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -14,13 +11,16 @@
 #include "../Gui_Headers.h"
 
 #include "../../Files/Wav_File.h"
+#include "../../Functions/Sine_Function.h"
+#include "../../Functions/DegreeZero_Function.h"
+#include "../../Functions/DegreeOne_Function.h"
 
 #if defined DEBUG
 #include <iostream>
 #endif
 
 // Audio_Window ------------------------------------------------------------- //
-Audio_Window::Audio_Window(juce::String name) : DocumentWindow(name, juce::Colours::black, 0)
+Audio_Window::Audio_Window(juce::String name) : DocumentWindow(name, juce::Colours::black, juce::DocumentWindow::allButtons)
 {
 #if defined CONSTRUCTORS
 	std::cout << "Debug> Audio_Window::Contruct" << std::endl;
@@ -32,10 +32,9 @@ Audio_Window::Audio_Window(juce::String name) : DocumentWindow(name, juce::Colou
 
 	// Configure Window
 	setUsingNativeTitleBar(true);
-	if (AUDIO_WINDOW_HEIGHT_L > AUDIO_WINDOW_HEIGHT_R)	setSize(AUDIO_WINDOW_WIDTH, AUDIO_WINDOW_HEIGHT_L);
-	else 							setSize(AUDIO_WINDOW_WIDTH, AUDIO_WINDOW_HEIGHT_R);
-	setResizable(false,false);
 	setVisible(true);
+	setResizable(false,false);
+	setSize(AUDIO_WINDOW_WIDTH, AUDIO_WINDOW_HEIGHT);
 }
 
 void Audio_Window::closeButtonPressed()
@@ -84,11 +83,11 @@ Audio_Editor::Audio_Editor()
 
 	// - Command Package
 	controls = new Control_Package();
-	controls->setSize(FILE_PACKAGE_WIDTH, FILE_PACKAGE_HEIGHT);
+	controls->setSize(CONTROL_PACKAGE_WIDTH, CONTROL_PACKAGE_HEIGHT);
 	controls->setVisible(true);
 
 	// - Function Package
-	functions = new Function_Package(graphs);
+	functions = new Function_Package();
 	functions->setSize(FUNCTION_PACKAGE_WIDTH, FUNCTION_PACKAGE_HEIGHT);
 	functions->setVisible(true);
 
@@ -98,16 +97,17 @@ Audio_Editor::Audio_Editor()
 	settings->setVisible(true);
 
 	// Finalize
+	// - Move these?
 	addAndMakeVisible(graphs);
 	addAndMakeVisible(controls);
 	addAndMakeVisible(functions);
 	addAndMakeVisible(settings);
 
-	resized();
-
 	graphs  ->Update_Graph();
-	graphs  ->Update_Inputs();	// pass file_settings ?
-	settings->Update_Inputs();	// pass file_settings ?
+	graphs  ->Update_Inputs();
+	settings->Update_Inputs();
+
+	resized();
 }
 
 Audio_Editor::~Audio_Editor()
@@ -132,11 +132,19 @@ Audio_Editor::~Audio_Editor()
 // -- Work ------------------------------------------------------------------ //
 Audio_File* Audio_Editor::Get_File()
 {
+#if defined SHOW_FUNCTIONS
+	std::cout << "Debug> Audio_Editor::Get_File()" << std::endl;
+#endif
+
 	return file_output;
 }
 
 Settings_Struct* Audio_Editor::Get_Settings()
 {
+#if defined SHOW_FUNCTIONS
+	std::cout << "Debug> Audio_Editor::Get_Settings()" << std::endl;
+#endif
+
 	return file_settings;
 }
 
@@ -145,10 +153,14 @@ Settings_Struct* Audio_Editor::Get_Settings()
 // Also, think about creating a member variable for absolute max
 float Audio_Editor::Find_AbsMax()
 {
+#if defined SHOW_FUNCTIONS
+	std::cout << "Debug> Audio_Editor::Find_AbsMax()" << std::endl;
+#endif
+
 	float max = 0.0;
 
 	unsigned int total_samples = file_settings->file_time_ms * file_settings->sample_rate / 1000;
-	unsigned int grind_rate = 64;
+	unsigned int grind_rate = 64; // tmp
 
 	float tmp, theta;
 
@@ -163,17 +175,23 @@ float Audio_Editor::Find_AbsMax()
 	// OR 
 	// Audio_Editor::abs_max = max;
 	/////////////////////
+#if defined SHOW_FUNCTIONS
 	std::cout << "Debug> Max = " << max << std::endl;
+#endif
 	return max;
 }
 
 // Is buggy?
 float Audio_Editor::Evaluate_All(float theta)
 {
+#if 0//defined SHOW_FUNCTIONS
+	std::cout << "Debug> Audio_Editor::Evaluate_All()" << std::endl;
+#endif
+
 	float sum = 0;
-	for (unsigned int i=0; i<function_list.size(); i++)
+	for (size_t i=0; i<function_list.size(); i++)
 	{
-		sum += function_list[i]->Get_Funcc()->Evaluate_Float(theta);
+		sum += function_list[i]->Evaluate_Float(theta);
 	}
 	return sum;
 }
@@ -181,18 +199,22 @@ float Audio_Editor::Evaluate_All(float theta)
 // -- From Graph Package ---------------------------------------------------- //
 void Audio_Editor::GraphBounds_Pressed()
 {
-	if (file_settings->max_amplitude != graphs->Grab_Bounds())
+	float tmp_bounds = graphs->Grab_Bounds();
+
+	if (file_settings->max_amplitude != tmp_bounds)
 	{
-		file_settings->max_amplitude = graphs->Grab_Bounds();
+		file_settings->max_amplitude = tmp_bounds;
 		graphs->Update_Graph();
 	}
 }
 
 void Audio_Editor::GraphTime_Pressed()
 {
-	if (file_settings->file_time_ms != graphs->Grab_TimeMs())
+	unsigned int tmp_time_ms = graphs->Grab_TimeMs();
+
+	if (file_settings->file_time_ms != tmp_time_ms)
 	{
-		file_settings->file_time_ms = graphs->Grab_TimeMs();
+		file_settings->file_time_ms = tmp_time_ms;
 		graphs->Update_Graph();
 	}
 }
@@ -200,31 +222,36 @@ void Audio_Editor::GraphTime_Pressed()
 // -- From Control Package -------------------------------------------------- //
 void Audio_Editor::ControlStream_Pressed()
 {
-	std::cout << "Later> Audio_Editor::ControlStream_Pressed()" << std::endl;
+#if defined SHOW_FUNCTIONS
+	std::cout << "Debug> Audio_Editor::ControlStream_Pressed()" << std::endl;
+#endif
 }
 
 void Audio_Editor::ControlExport_Pressed()
 {
-	std::cout << "Export_Audio - Start" << std::endl;
+#if defined SHOW_FUNCTIONS
+	std::cout << "Debug> Audio_Editor::ControlExport_Pressed()" << std::endl;
+#endif
 
-	// Prepare Output File
-	file_output->Set_Settings(file_settings);
-	for (unsigned int i=0; i<function_list.size(); i++)	file_output->Add_Function(function_list[i]->Get_Funcc());
+#if 0
+	// thread this!
+	// - also, syntax
+	if (thread_still_running)	return;
 
-	// Do it
-	file_output->To_File();
-
-	// Clear settings/files
-	file_output->Clear_File();
-
-	std::cout << "Export_Audio - Done" << std::endl;
+	export_thread(file_output->To_File(file_settings, (void*) &function_list);
+#else
+	file_output->To_File(file_settings, (void*) &function_list);
+#endif
 }
 
 void Audio_Editor::ControlSave_Pressed()
 {
-	std::cout << "Later> Audio_Editor::ControlSave_Pressed()" << std::endl;
+#if defined SHOW_FUNCTIONS
+	std::cout << "Debug> Audio_Editor::ControlSave_Pressed()" << std::endl;
+#endif
 }
 
+// Will be removed
 void Audio_Editor::ControlQuit_Pressed()
 {
 	// Watch out for Image Windows/Launch boys, too
@@ -237,40 +264,78 @@ void Audio_Editor::ControlQuit_Pressed()
 // Calls Function_Package resized
 void Audio_Editor::FunctionsAdd_Pressed()
 {
-	if (function_list.size() >= MAX_FUNCTIONS)	return;
+	size_t hold = function_list.size();
 
-	function_list.push_back(new Function_Input);
-	functions->Add_Input(function_list[function_list.size() - 1]);
+	if (hold >= MAX_FUNCTIONS)	return;
 
-	functions->resized();
-	graphs->Update_Graph();
-}
-
-// Remove from Function_Package(House), remove last Input
-// Always does last input
-// Calls Function_Package resized
-void Audio_Editor::FunctionsSub_Pressed()
-{
-	if (function_list.size() == 0)			return;
-
-	unsigned int choose = 0;	// for future; function just pops 
-
-	functions->Sub_Input(choose);
-	function_list.pop_back();
+	function_list.push_back(new Sine_Function);	// sine is defualt
+	functions->Add_Input(hold, function_list[hold]);
 
 	functions->resized();
 	graphs->Update_Graph();
 }
 
-// Skipping this?
-// - Or fix it?
-void Audio_Editor::InputsSwap_Pressed()
+// Notes
+void Audio_Editor::InputsSwap_Pressed(unsigned int in_choose)
 {
-	//if (old_value != new_value)
-	//{
-		functions->resized();
-		graphs->Update_Graph();
-	//}
+	// Check
+	if (function_list.size() == 0)	return;
+
+	// Update function_list
+	switch (function_list[in_choose]->Get_Id())
+	{
+		case (SINE):
+		{
+			function_list[in_choose] = nullptr;
+			function_list[in_choose] = new Deg0_Function;
+			break;
+		}
+		case (DEG0):
+		{
+			function_list[in_choose] = nullptr;
+			function_list[in_choose] = new Deg1_Function;
+
+			break;
+		}
+		case (DEG1):
+		{
+			function_list[in_choose] = nullptr;
+			function_list[in_choose] = new Sine_Function;
+			break;
+		}
+		default:
+		{
+			// idk, pass
+			break;
+		}
+	}
+
+	// Update functions(Function_Package)
+	functions->Sub_Input(in_choose);
+	functions->Add_Input(in_choose, function_list[in_choose]);
+
+	// Update GUI
+	functions->resized();
+	graphs->Update_Graph();
+}
+
+// Notes
+void Audio_Editor::InputsSub_Pressed(unsigned int in_choose)
+{
+	std::cout << in_choose << std::endl;
+
+	// Update internal
+	functions->Sub_Input(in_choose);
+	function_list.erase(function_list.begin() + in_choose);
+
+	// Update GUI
+	functions->resized();
+	graphs->Update_Graph();
+}
+
+void Audio_Editor::InputsEditor_Changed()
+{
+	graphs->Update_Graph();
 }
 
 // -- From Settings Package ------------------------------------------------- //
@@ -295,9 +360,9 @@ void Audio_Editor::SettingsDepth_Pressed()
 
 void Audio_Editor::SettingsFormat_Pressed()
 {
-	if      (file_settings->audio_format == MONO_L)	file_settings->audio_format = MONO_R;
-	else if (file_settings->audio_format == MONO_R)	file_settings->audio_format = STEREO;
-	else 						file_settings->audio_format = MONO_L;
+	if      (file_settings->audio_format == MONO_L)		file_settings->audio_format = MONO_R;
+	else if (file_settings->audio_format == MONO_R)		file_settings->audio_format = STEREO;
+	else 							file_settings->audio_format = MONO_L;
 
 	settings->Update_Inputs();
 	settings->resized();
@@ -305,8 +370,8 @@ void Audio_Editor::SettingsFormat_Pressed()
 
 void Audio_Editor::SettingsRound_Pressed()
 {
-	if (file_settings->round_tail)	file_settings->round_tail = false;
-	else				file_settings->round_tail = true;
+	if (file_settings->round_tail)				file_settings->round_tail = false;
+	else							file_settings->round_tail = true;
 
 	settings->Update_Inputs();
 	settings->resized();
@@ -315,17 +380,16 @@ void Audio_Editor::SettingsRound_Pressed()
 // -- JUCE ------------------------------------------------------------------ //
 void Audio_Editor::paint(juce::Graphics& g)
 {
-	g.fillAll(juce::Colours::brown);
+	g.fillAll(juce::Colours::brown);	// tbd
 }
 
 void Audio_Editor::resized()
 {
 	// Make these positions (sort of) dynamic
-	graphs   ->setTopLeftPosition(GAP_SPACE, GAP_SPACE);
-	controls ->setTopLeftPosition(GAP_SPACE, (GRAPH_PACKAGE_HEIGHT + 2*GAP_SPACE));
-
-	functions->setTopLeftPosition((GRAPH_PACKAGE_WIDTH + 2*GAP_SPACE), GAP_SPACE);
-	settings ->setTopLeftPosition((GRAPH_PACKAGE_WIDTH + 2*GAP_SPACE), (FUNCTION_PACKAGE_HEIGHT + 2*GAP_SPACE));
+	graphs   ->setTopLeftPosition((                                               1*GAP_SPACE), 1*GAP_SPACE);
+	functions->setTopLeftPosition((GRAPH_PACKAGE_WIDTH +                          2*GAP_SPACE), 1*GAP_SPACE);
+	settings ->setTopLeftPosition((GRAPH_PACKAGE_WIDTH + FUNCTION_PACKAGE_WIDTH + 3*GAP_SPACE), 1*GAP_SPACE);
+	controls ->setTopLeftPosition((GRAPH_PACKAGE_WIDTH + FUNCTION_PACKAGE_WIDTH + 3*GAP_SPACE), AUDIO_WINDOW_HEIGHT - CONTROL_PACKAGE_HEIGHT - GAP_SPACE); // temp
 
 	graphs   ->resized();
 	controls ->resized();

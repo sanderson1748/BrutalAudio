@@ -1,11 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
+//
 // DegreeOne_Function.cpp
+//
 
 #include <cmath>
 
@@ -15,7 +14,8 @@
 #include <iostream>
 #endif
 
-// General ----------------------------------------------------------------- //
+// Deg1_Function ------------------------------------------------------------ //
+// -- General --------------------------------------------------------------- //
 Deg1_Function::Deg1_Function()
 {
 #if defined CONSTRUCTORS
@@ -34,12 +34,13 @@ Deg1_Function::~Deg1_Function()
 #endif
 }
 
-// Base_Function ----------------------------------------------------------- //
+// -- Base_Function --------------------------------------------------------- //
 int Deg1_Function::Get_Id()
 {
 	return id;
 }
 
+// Returned Array will be of size 2 (== NUM_DEG1_VALUES)
 float* Deg1_Function::Get_Values()
 {
 	return (float*) (&dude);
@@ -90,6 +91,9 @@ float Deg1_Function::Evaluate_Float(float in_x)
 	return ret;
 }
 
-// One Degree -------------------------------------------------------------- //
+// -- One Degree ------------------------------------------------------------ //
+//
+// pass
+//
 
 //

@@ -1,10 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
+//
 // Gui_Headers.h
 //
 // Temporary constants and things
@@ -55,8 +53,8 @@
 #define GRAPH_PACKAGE_HEIGHT	(GRAPH_GRAPH_HEIGHT + EDITOR_HEIGHT)
 
 // - Control_Package
-#define FILE_PACKAGE_WIDTH	(4 * BUTTON_WIDTH)
-#define FILE_PACKAGE_HEIGHT	(BUTTON_HEIGHT)
+#define CONTROL_PACKAGE_WIDTH	(4 * BUTTON_WIDTH)
+#define CONTROL_PACKAGE_HEIGHT	(BUTTON_HEIGHT)
 
 // - Function_Package
 #define FUNCTION_INPUT_WIDTH	(INPUTS * (LABEL_WIDTH_SMALL + EDITOR_WIDTH_SMALL))
@@ -70,13 +68,12 @@
 #define FUNPACK_LABEL_HELP	(FUNCTION_PACKAGE_WIDTH - BUTTON_WIDTH)
 
 // - Settings_Package
-#define SETTINGS_PACKAGE_WIDTH	(FUNCTION_PACKAGE_WIDTH)
-#define SETTINGS_PACKAGE_HEIGHT	(5 * LABEL_HEIGHT)
+#define SETTINGS_PACKAGE_WIDTH	(LABEL_WIDTH_LARGE + EDITOR_WIDTH_SMALL + BUTTON_WIDTH)
+#define SETTINGS_PACKAGE_HEIGHT	(6 * LABEL_HEIGHT)
 
 // Sum it
-#define AUDIO_WINDOW_WIDTH	(GRAPH_PACKAGE_WIDTH  + FUNCTION_PACKAGE_WIDTH + 3 * GAP_SPACE)	
-#define AUDIO_WINDOW_HEIGHT_L	(GRAPH_PACKAGE_HEIGHT + FILE_PACKAGE_HEIGHT + 3 * GAP_SPACE)	
-#define AUDIO_WINDOW_HEIGHT_R	(FUNCTION_PACKAGE_HEIGHT + SETTINGS_PACKAGE_HEIGHT + 3 * GAP_SPACE)	
+#define AUDIO_WINDOW_WIDTH	(GRAPH_PACKAGE_WIDTH + FUNCTION_PACKAGE_WIDTH + SETTINGS_PACKAGE_WIDTH + 4*GAP_SPACE)	
+#define AUDIO_WINDOW_HEIGHT	(GRAPH_PACKAGE_HEIGHT + 2*GAP_SPACE)	
 
 #endif
 

@@ -1,10 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
+//
 // Saw_Function.h
 //
 // ++ Later ++
@@ -13,10 +11,8 @@
 //	maybe like this?
 //
 
-#ifndef __SAW_GUY__
-#define __SAW_GUY__
-
-#include <cstdint>
+#ifndef __FUNCTION_SAW__
+#define __FUNCTION_SAW__
 
 #include "Base_Function.h"
 
@@ -55,7 +51,7 @@ class Saw_Function: public Base_Function
 		   float Evaluate_Float(float);
 
 		// Saw
-
+		// - pass
 };
 
 #endif

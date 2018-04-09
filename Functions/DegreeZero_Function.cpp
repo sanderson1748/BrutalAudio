@@ -1,11 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
-// Deg0_Function.cpp
+//
+// DegreeZero_Function.cpp
+//
 
 #include <cmath>
 
@@ -15,7 +14,8 @@
 #include <iostream>
 #endif
 
-// General ----------------------------------------------------------------- //
+// Deg0_Function ------------------------------------------------------------ //
+// -- General --------------------------------------------------------------- //
 Deg0_Function::Deg0_Function()
 {
 #if defined CONSTRUCTORS
@@ -33,12 +33,13 @@ Deg0_Function::~Deg0_Function()
 #endif
 }
 
-// Base_Function ----------------------------------------------------------- //
+// -- Base_Function --------------------------------------------------------- //
 int Deg0_Function::Get_Id()
 {
 	return id;
 }
 
+// Returned array will be of size 1 (== NUM_DEG0_VALUES)
 float* Deg0_Function::Get_Values()
 {
 	return (float*) (&dude);
@@ -83,6 +84,9 @@ float Deg0_Function::Evaluate_Float(float in_x)
 	return ret;
 }
 
-// Zero Degrees ------------------------------------------------------------ //
+// -- Zero Degree ----------------------------------------------------------- //
+//
+// pass
+//
 
 //

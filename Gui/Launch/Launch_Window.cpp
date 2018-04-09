@@ -1,8 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -12,15 +9,13 @@
 #include "Launch_Window.h"
 
 #include "../Gui_Headers.h"
-#include "../Audio/Audio_Window.h"
-#include "../Image/Image_Window.h"
 
 #if defined DEBUG
 #include <iostream>
 #endif
 
 // Launch_Window ----------------------------------------------------------- //
-Launch_Window::Launch_Window(juce::String name) : DocumentWindow(name, juce::Colours::black, 0)
+Launch_Window::Launch_Window(juce::String name) : DocumentWindow(name, juce::Colours::black, juce::DocumentWindow::allButtons)
 {
 #if defined CONSTRUCTORS
 	std::cout << "Debug> Launch_Window::Contruct" << std::endl;
@@ -101,19 +96,11 @@ Launch_Editor::~Launch_Editor()
 
 void Launch_Editor::paint(juce::Graphics& g)
 {
-#if 0//defined SHOW_FUNCTIONS
-	std::cout << "Debug> Launch_Window::paint(..)" << std::endl;
-#endif
-
 	g.fillAll(juce::Colours::green);
 }
 
 void Launch_Editor::resized()
 {
-#if defined SHOW_FUNCTIONS
-	std::cout << "Debug> Launch_Window::resized" << std::endl;
-#endif
-
 	// Position Modules
 	button_audio->setTopLeftPosition(GAP_SPACE,GAP_SPACE);
 	button_image->setTopLeftPosition(GAP_SPACE,110);

@@ -1,10 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
+//
 // DegreeOne_Function.h
 // 
 // Linear Functions
@@ -12,18 +10,16 @@
 // f(x) = ax + con
 //
 
-#ifndef __DEGREE_1__
-#define __DEGREE_1__
-
-#include <cstdint>
+#ifndef __FUNCTION_DEG1__
+#define __FUNCTION_DEG1__
 
 #include "Base_Function.h"
 
 // f(x) = ax + con 
 typedef struct
 {
-	float slope;
-	float con;
+	float slope;	// Linear
+	float con;	// Constant
 } Degree1_Struct;
 
 class Deg1_Function: public Base_Function
@@ -49,7 +45,7 @@ class Deg1_Function: public Base_Function
 		   float     Evaluate_Float(float);
 
 		// One Degree
-
+		// - pass
 };
 
 #endif

@@ -1,19 +1,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
+//
 // Sine_Function.h
+//
+// Trig
 //
 // f(theta) = amp sin(theta + phi) + c
 //
 
-#ifndef __SINE_GUY__
-#define __SINE_GUY__
-
-#include <cstdint>
+#ifndef __FUNCTION_SINE__
+#define __FUNCTION_SINE__
 
 #include "Base_Function.h"
 
@@ -49,7 +47,7 @@ class Sine_Function: public Base_Function
 		   float Evaluate_Float(float);
 
 		// Sine
-
+		// - pass
 };
 
 #endif

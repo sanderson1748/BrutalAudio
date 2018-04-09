@@ -1,10 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Brutal Editor                                                              //
-// - Internal Development Version 24                                          //
-// - 2018 March 21                                                            //
-//                                                                            //
 // sanderson1748@gmail.com                                                    //
 ////////////////////////////////////////////////////////////////////////////////
+//
 // Deg0_Function.h
 // 
 // Constant Functions
@@ -12,17 +10,15 @@
 // f(x) = con
 //
 
-#ifndef __DEGREE_0__
-#define __DEGREE_0__
-
-#include <cstdint>
+#ifndef __FUNCTION_DEG0__
+#define __FUNCTION_DEG0__
 
 #include "Base_Function.h"
 
 // f(x) = ax + con 
 typedef struct
 {
-	float con;
+	float con;	// Constant
 } Degree0_Struct;
 
 class Deg0_Function : public Base_Function
@@ -47,8 +43,8 @@ class Deg0_Function : public Base_Function
 		 int32_t Evaluate_I32(float);
 		   float Evaluate_Float(float);
 
-		// Zero Degrees
-
+		// Zero Degree
+		// - pass
 };
 
 #endif
